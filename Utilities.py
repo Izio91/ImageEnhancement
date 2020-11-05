@@ -6,8 +6,7 @@ def read_image(path, color_scale = 'gray'):
     color_scale_dictionary = {
         "gray": cv2.IMREAD_GRAYSCALE,
         "color": cv2.IMREAD_COLOR,
-        "anydepth": cv2.IMREAD_ANYDEPTH,
-        "anycolor": cv2.IMREAD_ANYCOLOR
+        "unchanged": cv2.IMREAD_UNCHANGED
     }
     scale = color_scale_dictionary.get(color_scale)
     if(scale == None):
