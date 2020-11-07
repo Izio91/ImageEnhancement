@@ -1,7 +1,18 @@
 import numpy as np
+import cv2
+
+def image_is_in_gray_scale(image):
+    return len(image.shape) == 2
 
 def make_image_negative(image):
-    return np.subtract(255, image)
+    if not image_is_in_gray_scale(image):
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+        output = np.subtract([179, 255, 255], image)
+        output = output.astype(np.uint8)
+        output = cv2.cvtColor(output, cv2.COLOR_HSV2BGR)
+        return output
+    else:
+        return np.subtract(255, image)
 
 def histogram_of_grayscale(image):
     histogram = np.zeros(256)
