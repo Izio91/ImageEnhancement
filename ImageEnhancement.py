@@ -6,11 +6,12 @@ def image_is_in_gray_scale(image):
 
 def make_image_negative(image):
     if not image_is_in_gray_scale(image):
-        image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+        """image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
         output = np.subtract([179, 255, 255], image)
         output = output.astype(np.uint8)
-        output = cv2.cvtColor(output, cv2.COLOR_HSV2BGR)
-        return output
+        output = cv2.cvtColor(output, cv2.COLOR_HSV2BGR)"""
+        output = np.subtract([255, 255, 255], image)
+        return output.astype(np.uint8)
     else:
         return np.subtract(255, image)
 
