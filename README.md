@@ -13,7 +13,7 @@ Inside the main.py file there are simple examples about how to use them.
 ![Negative of an rgb image](https://github.com/Izio91/ImageEnhancement/blob/master/results/results_negative_columbia.png)
 
 #
-**Local thresholding of an grayscale image**
+**Local thresholding of a grayscale image**
 
 ![Local thresholding of an grayscale image](https://github.com/Izio91/ImageEnhancement/blob/master/results/sonnet.png)
 
