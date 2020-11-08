@@ -82,3 +82,50 @@ def apply_thresholding(image, output, kernel_size):
                     output[i,j] = 255
 
     return output.astype(np.uint8)
+
+def histogram_equalization(image):
+    output = np.zeros(image.shape)
+    N = image.shape[0] * image.shape[1]
+    if not image_is_in_gray_scale(image):
+        frequency_for_each_blue_level = np.zeros(256)
+        frequency_for_each_green_level = np.zeros(256)
+        frequency_for_each_red_level = np.zeros(256)
+        max_blue_level = np.max(image[:,:,0])
+        max_green_level = np.max(image[:,:,1])
+        max_red_level = np.max(image[:,:,2])
+
+        for i in range(image.shape[0]):
+            for j in range(image.shape[1]):
+                blue_level = image[i, j, 0]
+                green_level = image[i, j, 1]
+                red_level = image[i, j, 2]
+                frequency_for_each_blue_level[blue_level] = frequency_for_each_blue_level[blue_level] + 1
+                frequency_for_each_green_level[green_level] = frequency_for_each_green_level[green_level] + 1
+                frequency_for_each_red_level[red_level] = frequency_for_each_red_level[red_level] + 1
+        normalized_histogram_for_blue_level = frequency_for_each_blue_level / N
+        normalized_histogram_for_green_level = frequency_for_each_green_level / N
+        normalized_histogram_for_red_level = frequency_for_each_red_level / N
+
+        for i in range(image.shape[0]):
+            for j in range(image.shape[1]):
+                blue_level = image[i, j, 0]
+                green_level = image[i, j, 1]
+                red_level = image[i, j, 2]
+                new_blue_level = int(np.araound(normalized_histogram_for_blue_level[blue_level] * max_blue_level))
+                new_green_level = int(np.around(normalized_histogram_for_green_level[green_level] * max_green_level))
+                new_red_level = int(np.around(normalized_histogram_for_red_level[red_level] * max_red_level))
+                output[i, j] = [new_blue_level, new_green_level, new_red_level]
+    else:
+        frequency_for_each_gray_level = np.zeros(256)
+        max_gray_level = np.max(image)
+
+        for i in range(image.shape[0]):
+            for j in range(image.shape[1]):
+                gray_level = image[i, j]
+                frequency_for_each_gray_level[gray_level] = frequency_for_each_gray_level[gray_level] + 1
+        normalized_histogram_for_gray_level = frequency_for_each_gray_level/N
+        for i in range(image.shape[0]):
+            for j in range(image.shape[1]):
+                gray_level = image[i, j]
+                output[i, j] = int(np.around(normalized_histogram_for_gray_level[gray_level] * max_gray_level))
+    return output.astype(np.uint8)
