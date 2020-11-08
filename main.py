@@ -12,10 +12,10 @@ import cv2
 path= 'images/1577x1365.png'
 #path= 'images/745x419.jpg'
 #path = 'images/402x588.png'
-#path= 'images/columbia.jpg'
+path= 'images/columbia.jpg'
 #path= 'images/306x341.png'
 #path= 'images/sonnet.png'
-color_scale = "gray"
+color_scale = "rgb"
 image = read_image(path, color_scale)
 
 # Threshold

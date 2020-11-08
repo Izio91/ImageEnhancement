@@ -81,6 +81,11 @@ def apply_thresholding(image, output, kernel_size):
                 if image[i,j] > threshold:
                     output[i,j] = 255
 
+    if not image_is_in_gray_scale(image):
+        for i in range(output.shape[0]):
+            for j in range(output.shape[1]):
+                if not np.array_equal(output[i, j], [255, 255, 255]):
+                    output[i, j] = image[i, j]
     return output.astype(np.uint8)
 
 def histogram_equalization(image):
